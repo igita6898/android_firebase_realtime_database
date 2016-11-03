@@ -53,3 +53,21 @@ Using Firebase Real Time Database  `fbrtdb`
 }
 
 ```
+
+# Firebase Rules:
+```
+{
+  "rules": {
+    // restricted path
+    // index for the usernames
+    ".indexOn": ["user"],
+
+    "colabnotes": {
+
+      // read and write access to all the keys below this path
+      ".read": true,
+    	".write": true,
+    }
+  }
+}
+```

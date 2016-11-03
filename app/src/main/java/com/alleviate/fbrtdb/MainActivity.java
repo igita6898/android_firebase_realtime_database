@@ -9,8 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
                 add_user_profile(str_ful_name, str_user_name);
 
-                Snackbar.make(view,"User Created!",Snackbar.LENGTH_SHORT).show();
-
             }
         });
 
@@ -56,15 +58,29 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference databaseReference = firebaseDatabase.getReference("colabnotes/");
         // >>> https://fbrtdb.firebaseio.com/colabnotes/
 
-        // Since each user will have a unique username, it makes sense to use the set method here instead
-        // of the push method since we already have the key and don't need to create one.
+        // Push - Add to a list of data in the database. Every time you push a new node onto a list, your database generates a unique key.
+        // Calling push() will return a reference to the new data path, which you can use to get the key or set data to it.
 
-        DatabaseReference user_add_ref = databaseReference.child("user");
+        // Since each user will have a unique username, it makes sense to use the set.
+
+        DatabaseReference user_add_ref = databaseReference.child("user").push();
+        String userId = user_add_ref.getKey();
 
         Map<String, User> users = new HashMap<String, User>();
         users.put(str_user_name, new User(str_ful_name));
 
-        user_add_ref.setValue(users);
+        user_add_ref.setValue(users, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                View view = (View)findViewById(R.id.save_user_profile);
+                if (databaseError == null) {
+                    Snackbar.make(view, "User Created!",Snackbar.LENGTH_SHORT).show();
+                } else {
+                    Snackbar.make(view, databaseError.getMessage(),Snackbar.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 
     @Override
