@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "853834691980",
+    "firebase_url": "https://fbrtdb.firebaseio.com",
+    "project_id": "fbrtdb",
+    "storage_bucket": "fbrtdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853834691980:android:32fa9a3d9b43c137",
+        "android_client_info": {
+          "package_name": "com.alleviate.fbrtdb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "853834691980-75i6sb0o37727h8f12027gj8ibo92gpf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAy-eF1TOXa4zscYrOyTAieA37iqVBJ5Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
